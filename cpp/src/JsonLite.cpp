@@ -1,32 +1,17 @@
 #include "JsonLite.hpp"
-JsonLite::JsonLite(char *argv[] = nullptr)
+JsonLite::JsonLite()
 {
-    val = argv ;
-    jsonFunctionInit();
 }
 
 JsonLite::~JsonLite()
 {
 }
 
-void JsonLite::parse(char* argv[])
+void JsonLite::checkJsonType(std::string_view content)
 {
-
-}
-
-void JsonLite::jsonFunctionInit(char *argv[])
-{
-    using Handler = std::function<void()>;
-    static const std::unordered_map<std::string, Handler> handlers = {
-        {"check",checkJsonType()},
-        {"parse", parse()},
-    };
-    
-    auto it = handlers.find(argv[0]);
-    if (it == handlers.end()) {
-        throw std::invalid_argument("Unknown command");
+    if(content.empty()) {
+        std::cerr<<"str is null\n";
+        return;
     }
     
-    it->second();
-
 }
